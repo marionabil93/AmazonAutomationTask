@@ -14,7 +14,8 @@ public class LoginPage {
     protected WebDriver driver;
     WebDriverWait wait;
 
-
+    @FindBy (id = "nav-link-accountList")
+    WebElement DashboardLoginBtn;
     // Locators
     @FindBy(xpath = "//input[@name='email']")
     WebElement emailField;
@@ -36,7 +37,9 @@ public class LoginPage {
         PageFactory.initElements(driver, this);
     }
     // Page Actions
-
+    public void clickLoginHomePage() {
+        DashboardLoginBtn.click();
+    }
     public void enterUsername(String user) {
        wait.until(ExpectedConditions.visibilityOf(emailField)).sendKeys(user);
     }

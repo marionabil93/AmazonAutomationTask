@@ -15,8 +15,6 @@ public class CartPage {
     WebDriverWait wait;
     JavascriptExecutor js;
 
-    private final double PRICE_LIMIT = 15000;
-
     public CartPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
@@ -42,17 +40,10 @@ public class CartPage {
     @FindBy(xpath = "//a[contains(@aria-label,'Go to next page')]")
     WebElement nextPageButton;
 
-    @FindBy(xpath = "//div[@id='nav-cart-count-container']")
-    WebElement cartIcon;
-
-
-    @FindBy(xpath = "//div[@data-name='Active Items']")
-    List<WebElement> cartItems;
-
     @FindBy(xpath = "//*[@id='ewc-content']")
     WebElement leftAddedItems;
 
-    public void addProductsBelow15kToCart() throws InterruptedException {
+    public void addProductsBelow15kToCart() {
         boolean productAdded = false;
 
         while (true) { // Loop through pages
@@ -62,12 +53,12 @@ public class CartPage {
                 try{
                 String priceText = productPrices.get(i).getText().replace(",", "").trim();
                 int price = Integer.parseInt(priceText);
-                Thread.sleep(2000);
+                //Thread.sleep(2000);
                     wait.until(ExpectedConditions.visibilityOf(productPrices.get(i)));
 
                 if (price < 15000) {
                     productAdded = true;
-                   Thread.sleep(2000);
+                   //Thread.sleep(2000);
                     wait.until(ExpectedConditions.visibilityOf(addToCartButtons.get(i)));
                     waitForElementAndScrollToClick(addToCartButtons.get(i));
 
@@ -84,8 +75,6 @@ public class CartPage {
             if (!productAdded && isNextPageAvailable()) {
                 waitForElementAndScrollToClick(nextPageButton);
                 wait.until(ExpectedConditions.visibilityOfAllElements(productPrices));
-
-
                 //nextPageButton.click();
                 //wait.until(ExpectedConditions.visibilityOfAllElements(productPrices));
             } else {
@@ -93,10 +82,6 @@ public class CartPage {
             }
         }
     }
-
-//    private void addProductToCart() {
-//        wait.until(ExpectedConditions.elementToBeClickable(addToCartButton)).click();
-//    }
 
     private boolean isNextPageAvailable() {
         try {
@@ -112,50 +97,16 @@ public class CartPage {
         element.click();
     }
 
-
-
-
-    private double extractPrice(String priceText) {
-        return Double.parseDouble(priceText.replaceAll("[^0-9.]", "")); // Extract numbers safely
+    double extractPrice(String priceText) {
+        return Double.parseDouble(priceText.replaceAll("[^0-9.]", "").trim()); // Extract numbers safely
     }
 
-    private void verifyCartItems() {
-        cartIcon.click();
-        if (cartItems.isEmpty()) {
-            System.out.println("No items found in cart. Check automation logic.");
-        } else {
-            System.out.println("All selected products are successfully added to the cart.");
-        }
-    }
-
-
-
-
-    private void verifyTotalAmount() {
-        double totalAmount = extractPrice(driver.findElement(By.id("sc-subtotal-amount-activecart")).getText());
-        double calculatedTotal = calculateTotal();;
-
-        if (Math.abs(totalAmount - calculatedTotal) < 1) {
-            System.out.println("Total amount verified successfully: " + totalAmount + " EGP");
-        } else {
-            System.out.println("Total amount mismatch! Expected: " + calculatedTotal + " EGP, Found: " + totalAmount + " EGP");
-        }
-    }
-
-    private double calculateTotal() {
-        List<WebElement> priceElements = driver.findElements(By.xpath("//div[@class='sc-apex-cart-price'] //span[@class='a-price-whole']"));
-        double total = 0;
-        for (WebElement priceElement : priceElements) {
-            double itemPrice = extractPrice(priceElement.getText());
-            total += itemPrice;
-            System.out.println("Item price added: " + itemPrice + " EGP");
-        }
-        System.out.println("Final calculated total amount: " + total + " EGP");
-        return total;
-    }
 
 }
 
+//    private void addProductToCart() {
+//        wait.until(ExpectedConditions.elementToBeClickable(addToCartButton)).click();
+//    }
 
   /*  public void addProductsBelow15kToCart() {
         while (true) {

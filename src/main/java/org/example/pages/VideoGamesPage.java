@@ -61,58 +61,5 @@ public class VideoGamesPage {
         Assert.assertTrue(resultPage.isDisplayed());
     }
 
-//    public void addProductsBelow15K() {
-//        for (WebElement product : products) {
-//            String priceText = product.getText().replace(",", "").replace("EGP", "").trim();
-//            double price = Double.parseDouble(priceText);
-//            if (price < 15000) {
-//                product.click();
-//                addToCart.click();
-//                nextPage.click();
-//                wait.until(ExpectedConditions.stalenessOf(products.get(0)));
-//            }
-//        }
-//    }
-
-
-   /* public void addProductsBelow15K() {
-        while (true) { // Keep paginating
-
-            for (WebElement product : products) {
-                try {
-                    // Extract product price
-                    priceElement =product;
-                    String priceText = priceElement.getText().replace(",", "").trim();
-
-                    if (!priceText.isEmpty()) {
-                        int price = Integer.parseInt(priceText);
-
-                        // If price < 15,000 EGP, add to cart
-                        if (price < 15000) {
-                            productAdded = true;
-
-                            // Click "Add to Cart" button
-                            addToCart=product;
-                            addToCart.click();
-
-                            // Wait for the cart confirmation
-//                            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sw-gtc")));
-                        }
-                    }
-                } catch (Exception e) {
-                    // Handle missing price or "Add to Cart" button
-                }
-            }
-
-            // If no product below 15K found, move to next page
-            try {
-                nextPage.click();
-                wait.until(ExpectedConditions.stalenessOf(products.get(0))); // Wait for page refresh
-            } catch (NoSuchElementException e) {
-                System.out.println("No more pages to navigate.");
-                break; // Stop if no next page
-            }
-        }
-    }*/
 }
 

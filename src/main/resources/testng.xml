@@ -4,7 +4,7 @@
 </listeners>
 <test name="LoginTests">
     <classes>
-        <class name="tests.LoginTest"/>
+        <class name="tests.testScript"/>
     </classes>
 </test>
 </suite>

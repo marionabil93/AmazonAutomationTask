@@ -17,8 +17,7 @@ public class DashboardPage {
     WebDriverWait wait;
     JavascriptExecutor js;
 
-    @FindBy (id = "nav-link-accountList")
-    WebElement DashboardLoginBtn;
+
 
     @FindBy (id = "nav-hamburger-menu")
     WebElement hamburgerBtn;
@@ -42,10 +41,6 @@ public class DashboardPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void clickLoginHomePage() {
-        DashboardLoginBtn.click();
-    }
-
     public void clickSeeAllCategories() {
         hamburgerBtn.click();
         wait.until(ExpectedConditions.visibilityOf(seeAllBtn));
@@ -53,7 +48,7 @@ public class DashboardPage {
         seeAllBtn.click();
     }
 
-   public  void navigateToAllVideoGames(){
+   public  void navigateToAllVideoGames() {
        wait.until(ExpectedConditions.visibilityOf(videoGamesItem));
        videoGamesItem.click();
        js.executeScript("arguments[0].click();", allVideoGamesItem);
@@ -65,7 +60,4 @@ public class DashboardPage {
         clickSeeAllCategories();
         navigateToAllVideoGames();
     }
-
-
-
 }
