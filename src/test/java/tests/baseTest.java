@@ -17,13 +17,11 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
@@ -42,13 +40,10 @@ public class baseTest {
     @BeforeSuite
     public void setUpReport() {
         extent = ExtentManager.getInstance();
-        test = ExtentManager.createTest("Amazon Purchase Test");
-        test.log(Status.INFO, "Navigated to Amazon Egypt");
-        logger.info("Starting Amazon Purchase Test");
-        logger.info("Navigated to Amazon Egypt");
-
+        logger.info("Extent Report initialized.");
     }
-    @BeforeClass
+
+    @BeforeTest
     public void setUp() {
         config = new ConfigReader();
         driver = WebDriverManagerUtil.getDriver();
@@ -57,7 +52,12 @@ public class baseTest {
         logger.info("Browser launched successfully");
     }
 
-
+    @BeforeMethod
+    public void createExtentTest(Method method) {
+        test = ExtentManager.createTest(method.getName());
+        test.log(Status.INFO, "Starting test: " + method.getName());
+        logger.info("Starting test: " + method.getName());
+    }
 
     @AfterMethod
     public void tearDown(ITestResult result) {
@@ -70,7 +70,6 @@ public class baseTest {
             test.log(Status.SKIP, "Test Skipped");
         }
     }
-
 
     @AfterSuite
     public void flushExtentReports() {

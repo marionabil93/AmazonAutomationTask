@@ -61,9 +61,15 @@ public class basePage {
         element.click();
     }
 
-
     public double extractPrice(String priceText) {
-        return Double.parseDouble(priceText.replaceAll("[^0-9.]", "").trim()); // Extract numbers safely
+        return Double.parseDouble(priceText.replaceAll("[^0-9.]", "").trim());
+    }
+
+
+    public void scrollLinearAndClick(WebElement element) {
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+        js.executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'center'});", element);
+        js.executeScript("arguments[0].click();", element);
     }
 
 }

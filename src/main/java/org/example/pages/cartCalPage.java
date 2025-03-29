@@ -30,7 +30,7 @@ public class cartCalPage extends basePage {
 
     public void verifyCartItems() {
         waitingElementToView(cartIcon);
-        clickElement(cartIcon);
+        scrollLinearAndClick(cartIcon);
         waitingElementToView(shoppingCartTitle);
         Assert.assertTrue(shoppingCartTitle.isDisplayed());
         if (cartItems.isEmpty()) {

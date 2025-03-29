@@ -1,7 +1,7 @@
 <suite name="SeleniumExtentReportsSuite">
 <test name="testScript">
     <classes>
-        <class name="tests.testScript"/>
+        <class name="tests.scriptTests"/>
     </classes>
 </test>
 </suite>

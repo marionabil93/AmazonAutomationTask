@@ -24,7 +24,7 @@ public class LoginPage extends basePage {
     @FindBy(xpath = "//input[@type='submit']")
     WebElement loginBtn;
 
-    @FindBy(id = "nav-link-accountList-nav-line-1")  // Profile name after login
+    @FindBy(id = "nav-link-accountList-nav-line-1")
      WebElement profileName;
 
 

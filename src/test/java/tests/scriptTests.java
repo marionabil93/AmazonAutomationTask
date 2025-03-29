@@ -7,7 +7,7 @@ import org.example.utils.ConfigReader;
 import org.testng.annotations.Test;
 
 
-public class testScript extends baseTest {
+public class scriptTests extends baseTest {
 
     @Test(priority = 1)
     public void testValidLogin() {
