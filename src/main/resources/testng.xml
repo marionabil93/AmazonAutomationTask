@@ -1,8 +1,5 @@
 <suite name="SeleniumExtentReportsSuite">
-<listeners>
-    <listener class-name="listeners.TestListener"/>
-</listeners>
-<test name="LoginTests">
+<test name="testScript">
     <classes>
         <class name="tests.testScript"/>
     </classes>

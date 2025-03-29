@@ -2,14 +2,12 @@ package tests;
 
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
-import org.example.base.BaseTest;
 import org.example.pages.*;
 import org.example.utils.ConfigReader;
-import org.example.utils.ExtentManager;
 import org.testng.annotations.Test;
 
 
-public class testScript extends BaseTest {
+public class testScript extends baseTest {
 
     @Test(priority = 1)
     public void testValidLogin() {

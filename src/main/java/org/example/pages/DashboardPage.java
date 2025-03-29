@@ -1,22 +1,17 @@
 package org.example.pages;
 
 import org.example.utils.ConfigReader;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-import java.time.Duration;
 
-public class DashboardPage {
-    WebDriver driver;
-    WebDriverWait wait;
-    JavascriptExecutor js;
+public class DashboardPage extends basePage {
 
+    public DashboardPage(WebDriver driver) {
+        super(driver);
+    }
 
 
     @FindBy (id = "nav-hamburger-menu")
@@ -34,24 +29,18 @@ public class DashboardPage {
     @FindBy(xpath = "//div[@class='fst-h1-st pageBanner']")
     WebElement VideoGamesTitlePage;
 
-    public DashboardPage(WebDriver driver) {
-        this.driver = driver;
-        this.js = (JavascriptExecutor) driver;  // Initialize JavaScript Executor
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        PageFactory.initElements(driver, this);
-    }
 
     public void clickSeeAllCategories() {
-        hamburgerBtn.click();
-        wait.until(ExpectedConditions.visibilityOf(seeAllBtn));
-        js.executeScript("arguments[0].scrollIntoView(true);;", seeAllBtn);
-        seeAllBtn.click();
+        clickElement(hamburgerBtn);
+        waitingElementToView(seeAllBtn);
+        scrollToElement(seeAllBtn);
+        clickElement(seeAllBtn);
     }
 
    public  void navigateToAllVideoGames() {
-       wait.until(ExpectedConditions.visibilityOf(videoGamesItem));
-       videoGamesItem.click();
-       js.executeScript("arguments[0].click();", allVideoGamesItem);
+       waitingElementToView(videoGamesItem);
+       clickElement(videoGamesItem);
+       clickUsingJS(allVideoGamesItem);
        String pageTitle = VideoGamesTitlePage.getText();
        Assert.assertTrue(pageTitle.contains(ConfigReader.getProperty("videoGamesTitle")));
    }

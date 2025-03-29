@@ -2,25 +2,12 @@ package org.example.pages;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-import java.time.Duration;
-import java.util.List;
-
-public class VideoGamesPage {
-    protected WebDriver driver;
-    WebDriverWait wait;
-    JavascriptExecutor js;
-
+public class VideoGamesPage extends basePage {
 
     public VideoGamesPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(50));
-        this.js = (JavascriptExecutor) driver;
-        PageFactory.initElements(driver, this);
+       super(driver);
     }
 
     @FindBy(xpath = "//input[@aria-labelledby='Free Shipping']")
@@ -41,23 +28,20 @@ public class VideoGamesPage {
 
 
     public void FilterByShipping(){
-        js.executeScript("arguments[0].click();", freeShippingCheckBox);
+        clickUsingJS(freeShippingCheckBox);
         Assert.assertTrue(resultPage.isDisplayed());
     }
 
     public void FilterByCondition(){
-        js.executeScript("window.scrollBy(0,500)", "");
-        wait.until(ExpectedConditions.visibilityOf(conditionNew));
-        js.executeScript("arguments[0].click();", conditionNew);
+        scrollInWindow(conditionNew);
+        clickUsingJS(conditionNew);
         Assert.assertTrue(resultPage.isDisplayed());
     }
 
     public void sorting(){
-        wait.until(ExpectedConditions.visibilityOf(sortDDL));
-        js.executeScript("arguments[0].click();", sortDDL);
-        wait.until(ExpectedConditions.visibilityOf(sortHighToLow));
-        sortHighToLow.click();
-        wait.until(ExpectedConditions.visibilityOf(resultPage));
+        clickUsingJS(sortDDL);
+        clickElement(sortHighToLow);
+        waitingElementToView(resultPage);
         Assert.assertTrue(resultPage.isDisplayed());
     }
 

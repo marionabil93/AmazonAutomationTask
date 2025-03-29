@@ -3,16 +3,14 @@ import org.example.utils.ConfigReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-import java.time.Duration;
+public class LoginPage extends basePage {
 
-public class LoginPage {
-    protected WebDriver driver;
-    WebDriverWait wait;
+
+    public LoginPage(WebDriver driver) {
+       super(driver);
+    }
 
     @FindBy (id = "nav-link-accountList")
     WebElement DashboardLoginBtn;
@@ -30,31 +28,24 @@ public class LoginPage {
      WebElement profileName;
 
 
-    // Constructor
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        PageFactory.initElements(driver, this);
-    }
     // Page Actions
     public void clickLoginHomePage() {
-        DashboardLoginBtn.click();
+        clickElement(DashboardLoginBtn);
     }
     public void enterUsername(String user) {
-       wait.until(ExpectedConditions.visibilityOf(emailField)).sendKeys(user);
+        enterText(emailField,user);
     }
 
     public void enterPassword(String pass) {
-        wait.until(ExpectedConditions.visibilityOf(passwordField)).sendKeys(pass);
-        //passwordField.sendKeys(pass);
+        enterText(passwordField,pass);
     }
     public void loginToAccount() {
-        loginBtn.click();
+        clickElement(loginBtn);
     }
 
 
     public void verifyLoginSuccess() {
-        wait.until(ExpectedConditions.visibilityOf(profileName));
+        waitingElementToView(profileName);
         String actualText = profileName.getText();
         Assert.assertTrue(actualText.contains(ConfigReader.getProperty("accountName")) , "Login Success !");
     }
